@@ -1,37 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Grams</h1>
+<h1>Grams</h1> <%= link_to 'New Gram', new_gram_path , class:"btn btn-success"%>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Location</th>
-      <th>Country</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @grams.each do |gram| %> <!-- logic erb -->
-      <tr>
-        <td><%= image_tag gram.image_url unless gram.image_url.nil? %></td>
-        <td><%= gram.title%></td> <!--erb, embedded ruby indexes, will evaluate the codes -->
-        <td><%= gram.content%></td> <!-- evaluate into something -->
+<div class="row">
+  <div class="col-xs-1 col-sm-1 col-md-1">Title</div>
+  <div class="col-xs-1 col-sm-1 col-md-1">Content</div>
+  <div class='col-xs-1 col-sm-1 col-md-1'>Location</div>
+  <div class='col-xs-1 col-sm-1 col-md-1'>Country</div>
+  <div class='col-xs-5 col-sm-5 col-md-5'>Image</div>
+  <div class='col-xs-1 col-sm-1 col-md-1'>Show</div>
+  <div class='col-xs-1 col-sm-1 col-md-1'>Edit</div>
+  <div class='col-xs-1 col-sm-1 col-md-1'>Destroy</div>
+</div>
 
-        <td><%= gram.location%></td>
-        <td><%= country_name(gram.country_code)%></td>
-        <td><%= link_to 'Show', gram %></td>
-        <td><%= link_to 'Edit', edit_gram_path(gram) %></td>
-        <td><%= link_to 'Destroy', gram, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @grams.each do |gram| %>
+  <div class="row">
+    <div class="col-xs-1"><%= gram.title%></div>
+    <div class="col-xs-1"><%= gram.content%></div>
+    <div class="col-xs-1"><%= gram.location%></div>
+    <div class="col-xs-1"><%= country_name(gram.country_code)%></div>
+    <div class="col-xs-5"><%= image_tag gram.image_url, class:"img-responsive" unless gram.image_url.nil? %></div>
+    <div class="col-xs-1"><%= link_to 'Show', gram, class: "btn btn-primary" %></div>
+    <div class="col-xs-1"><%= link_to 'Edit', edit_gram_path(gram) , class: "btn btn-warning"%></div>
+    <div class="col-xs-1"><%= link_to 'Destroy', gram, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger"%></div>
+  </div>
+<% end %>
 
 <br>
-<%= paginate @grams %>
-
-<%= link_to 'New Gram', new_gram_path %>
-<%= link_to 'Custom', hihi_path %>
+<div class="text-center">
+  <%= paginate @grams%>
+</div>
+<!-- <%= link_to 'Custom', hihi_path %> -->
