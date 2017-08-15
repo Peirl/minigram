@@ -16,8 +16,10 @@
   <tbody>
     <% @grams.each do |gram| %> <!-- logic erb -->
       <tr>
+        <td><%= image_tag gram.image_url unless gram.image_url.nil? %></td>
         <td><%= gram.title%></td> <!--erb, embedded ruby indexes, will evaluate the codes -->
         <td><%= gram.content%></td> <!-- evaluate into something -->
+
         <td><%= gram.location%></td>
         <td><%= country_name(gram.country_code)%></td>
         <td><%= link_to 'Show', gram %></td>
