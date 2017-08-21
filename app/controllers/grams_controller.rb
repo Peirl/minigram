@@ -4,7 +4,12 @@ class GramsController < ApplicationController
   # GET /grams
   # GET /grams.json
   def index
-    @grams = Gram.page(params[:page]).per(2)
+    @grams =
+      if current_user
+        current_user.grams.page(params[:page]).per(2)
+      else
+        Gram.page(params[:page]).per(2)
+      end
   end
 
   # GET /grams/1
@@ -14,6 +19,10 @@ class GramsController < ApplicationController
 
   # GET /grams/new
   def new
+    unless current_user
+      flash[:error] = "You need to log in before creating a new gram."
+      redirect_to grams_path
+
     @gram = Gram.new
   end
 
@@ -24,7 +33,13 @@ class GramsController < ApplicationController
   # POST /grams
   # POST /grams.json
   def create
-    @gram = Gram.new(gram_params)
+    @current_user = current_user
+
+    # user1 = Users.find(1)
+    # user1.grams (all grams that belong to the user)
+    # user1.grams.create -> will have user_id set to user1
+
+    @gram = @current_user.grams.new(gram_params)
 
     respond_to do |format|
       if @gram.save
