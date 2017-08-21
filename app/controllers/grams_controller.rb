@@ -22,6 +22,7 @@ class GramsController < ApplicationController
     unless current_user
       flash[:error] = "You need to log in before creating a new gram."
       redirect_to grams_path
+    end
 
     @gram = Gram.new
   end
